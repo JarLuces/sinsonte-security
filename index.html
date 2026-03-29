@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Estado de seguridad — Sinsonte Suite</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin:0; padding:0; background:#f1f5f9;
+            font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+            color:#1e293b; }
+    header { background:#3d5a27; color:#fff; padding:32px 24px 28px; }
+    header h1 { margin:0 0 4px; font-size:22px; font-weight:700; }
+    header p  { margin:0; font-size:13px; opacity:.75; }
+    .status-bar { background:#2d4a1e; padding:16px 24px; display:flex;
+                    align-items:center; gap:12px; flex-wrap:wrap; }
+    .status-label { font-size:13px; color:#a3c177; font-weight:600; }
+    .pill { display:inline-block; padding:4px 14px; border-radius:99px;
+             font-size:12px; font-weight:700; }
+    .pill.ok         { background:#dcfce7; color:#15803d; }
+    .pill.fail       { background:#fee2e2; color:#b91c1c; }
+    .pill.configured { background:#e0f2fe; color:#0369a1; }
+    .pill.unknown    { background:#f3f4f6; color:#6b7280; }
+    .pill.overall-ok   { background:#dcfce7; color:#15803d; font-size:15px; padding:6px 20px; }
+    .pill.overall-fail { background:#fee2e2; color:#b91c1c; font-size:15px; padding:6px 20px; }
+    main { max-width:860px; margin:32px auto; padding:0 16px 48px; }
+    .card { background:#fff; border-radius:10px; border:1px solid #e2e8f0;
+             overflow:hidden; margin-bottom:24px; }
+    .card-title { padding:16px 20px 0; font-size:11px; font-weight:700;
+                    text-transform:uppercase; letter-spacing:.08em; color:#94a3b8; }
+    table { width:100%; border-collapse:collapse; }
+    th { padding:10px 16px; font-size:11px; font-weight:600; color:#94a3b8;
+          text-transform:uppercase; letter-spacing:.05em; text-align:left;
+          border-bottom:2px solid #f1f5f9; background:#f8fafc; }
+    th.center, td.td-center { text-align:center; }
+    td { padding:14px 16px; border-bottom:1px solid #f8fafc;
+          font-size:13px; vertical-align:top; }
+    tr:last-child td { border-bottom:none; }
+    .td-area { color:#1e293b; font-weight:500; }
+    .note { font-size:11px; color:#94a3b8; font-weight:400; margin-top:2px; }
+    .ev-link { color:#3d5a27; font-weight:600; text-decoration:underline; font-size:12px; }
+    .meta-grid { display:grid; grid-template-columns:1fr 1fr;
+                   gap:0; }
+    .meta-row { display:flex; justify-content:space-between; align-items:center;
+                  padding:12px 20px; border-bottom:1px solid #f8fafc; font-size:13px; }
+    .meta-row:last-child { border-bottom:none; }
+    .meta-label { color:#64748b; }
+    .meta-value { font-weight:700; color:#1e293b; }
+    footer { text-align:center; font-size:12px; color:#94a3b8; padding:24px 0 0; }
+    footer a { color:#3d5a27; }
+    .updated { font-size:11px; color:#a3c177; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Estado de seguridad</h1>
+  <p>Sinsonte Suite &middot; Controles automatizados</p>
+</header>
+
+<div class="status-bar">
+  <span class="status-label">Estado general del sistema:</span>
+  <span class="pill overall-ok">Favorable</span>
+  <span class="updated" style="margin-left:auto">Actualizado: 29/03/2026 11:53 UTC</span>
+</div>
+
+<main>
+
+  <!-- Controles -->
+  <div class="card">
+    <p class="card-title">Estado de controles</p>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:45%">Control</th>
+          <th class="center">Estado</th>
+          <th class="center">Último escaneo</th>
+          <th class="center">Evidencia</th>
+        </tr>
+      </thead>
+      <tbody>
+    <tr>
+      <td class="td-area">SAST / Supply Chain (Semgrep + Trivy)<br><span class="note">Ejecutado en cada despliegue a staging</span></td>
+      <td class="td-center"><span class="pill ok">OK</span></td>
+      <td class="td-center">2026-03-29</td>
+      <td class="td-center"><a href="https://github.com/JarLuces/infraestructura-sinsonte/actions/runs/23704728090" target="_blank" rel="noopener" class="ev-link">Ver evidencia</a></td>
+    </tr>
+    <tr>
+      <td class="td-area">DAST — OWASP ZAP Baseline (staging)<br><span class="note">Escaneo semanal automatizado</span></td>
+      <td class="td-center"><span class="pill ok">OK</span></td>
+      <td class="td-center">2026-03-29</td>
+      <td class="td-center"><a href="https://github.com/JarLuces/infraestructura-sinsonte/actions/runs/23704789958" target="_blank" rel="noopener" class="ev-link">Ver evidencia</a></td>
+    </tr>
+    <tr>
+      <td class="td-area">Backups Supabase<br><span class="note">Verificación semanal automatizada</span></td>
+      <td class="td-center"><span class="pill ok">OK</span></td>
+      <td class="td-center">2026-03-29</td>
+      <td class="td-center"><a href="https://github.com/JarLuces/infraestructura-sinsonte/actions/runs/23703051249" target="_blank" rel="noopener" class="ev-link">Ver evidencia</a></td>
+    </tr>
+    <tr>
+      <td class="td-area">Autenticación y autorización (JWT + roles)<br><span class="note">Controles activos — sin escaneo automático semanal</span></td>
+      <td class="td-center"><span class="pill configured">Activo</span></td>
+      <td class="td-center">—</td>
+      <td class="td-center">—</td>
+    </tr>
+    <tr>
+      <td class="td-area">Rate limiting y WAF (Cloud Armor)<br><span class="note">Controles activos — sin escaneo automático semanal</span></td>
+      <td class="td-center"><span class="pill configured">Activo</span></td>
+      <td class="td-center">—</td>
+      <td class="td-center">—</td>
+    </tr></tbody>
+    </table>
+  </div>
+
+  <!-- Infraestructura -->
+  <div class="card">
+    <p class="card-title">Infraestructura</p>
+    <div>
+      <div class="meta-row"><span class="meta-label">Cloud Run — API (staging)</span><span class="pill ok">Activo</span></div><div class="meta-row"><span class="meta-label">Cloud Run — Frontend (staging)</span><span class="pill ok">Activo</span></div><div class="meta-row"><span class="meta-label">Artifact Registry</span><span class="pill ok">Activo</span></div><div class="meta-row"><span class="meta-label">Supabase (PostgreSQL)</span><span class="pill ok">Activo</span></div><div class="meta-row"><span class="meta-label">Secret Manager</span><span class="pill ok">Activo</span></div>
+    </div>
+  </div>
+
+  <!-- Nota -->
+  <p style="font-size:12px;color:#94a3b8;line-height:1.7;margin-top:8px">
+    Esta página refleja el estado técnico observable de los controles automatizados en la
+    fecha indicada. Los controles marcados como <strong>Activo</strong> están configurados
+    y operativos, pero no disponen de verificación automática semanal ejecutada ese día.<br>
+    Cualquier consulta:
+    <a href="mailto:info@sinsonte-tech.com" style="color:#3d5a27;font-weight:600">info@sinsonte-tech.com</a>
+  </p>
+
+</main>
+
+<footer>
+  Sinsonte Technologies SL &middot;
+  <a href="mailto:info@sinsonte-tech.com">info@sinsonte-tech.com</a> &middot;
+  <a href="https://app.sinsonte-tech.com">app.sinsonte-tech.com</a>
+  <br>&copy; 2026 Sinsonte Technologies SL
+</footer>
+
+</body>
+</html>
