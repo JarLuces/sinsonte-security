@@ -21,6 +21,7 @@
     .pill.fail       { background:#fee2e2; color:#b91c1c; }
     .pill.configured { background:#e0f2fe; color:#0369a1; }
     .pill.unknown    { background:#f3f4f6; color:#6b7280; }
+    .pill.warn       { background:#fef3c7; color:#92400e; }
     .pill.overall-ok   { background:#dcfce7; color:#15803d; font-size:15px; padding:6px 20px; }
     .pill.overall-fail { background:#fee2e2; color:#b91c1c; font-size:15px; padding:6px 20px; }
     main { max-width:860px; margin:32px auto; padding:0 16px 48px; }
@@ -60,8 +61,8 @@
 
 <div class="status-bar">
   <span class="status-label">Estado general del sistema:</span>
-  <span class="pill overall-ok">Favorable</span>
-  <span class="updated" style="margin-left:auto">Actualizado: 29/03/2026 15:50 UTC</span>
+  <span class="pill overall-fail">Revisar</span>
+  <span class="updated" style="margin-left:auto">Actualizado: 29/03/2026 15:59 UTC</span>
 </div>
 
 <main>
@@ -80,14 +81,14 @@
       </thead>
       <tbody>
     <tr>
-      <td class="td-area">SAST / Supply Chain (Semgrep + Trivy)<br><span class="note">Ejecutado en cada despliegue a staging</span></td>
-      <td class="td-center"><span class="pill ok">OK</span></td>
+      <td class="td-area">SAST / Supply Chain (Semgrep + Trivy)<br><span class="note">Sin CVEs críticos ni altos en imagen Docker · 1 CVE medio en pip (remediación disponible)</span></td>
+      <td class="td-center"><span class="pill unknown">—</span></td>
       <td class="td-center">2026-03-29</td>
       <td class="td-center"><a href="https://jarluces.github.io/sinsonte-security/trivy-api.html" target="_blank" rel="noopener" class="ev-link">API</a> &nbsp;·&nbsp; <a href="https://jarluces.github.io/sinsonte-security/trivy-app.html" target="_blank" rel="noopener" class="ev-link">App</a></td>
     </tr>
     <tr>
-      <td class="td-area">DAST — OWASP ZAP Baseline (staging)<br><span class="note">Escaneo semanal automatizado</span></td>
-      <td class="td-center"><span class="pill ok">OK</span></td>
+      <td class="td-area">DAST — OWASP ZAP Baseline (staging)<br><span class="note">Sin hallazgos altos · alertas medias presentes (CSP, SRI) — ver evidencia</span></td>
+      <td class="td-center"><span class="pill warn">Sin bloqueos</span></td>
       <td class="td-center">2026-03-29</td>
       <td class="td-center"><a href="https://jarluces.github.io/sinsonte-security/zap-api.html" target="_blank" rel="noopener" class="ev-link">API</a> &nbsp;·&nbsp; <a href="https://jarluces.github.io/sinsonte-security/zap-app.html" target="_blank" rel="noopener" class="ev-link">App</a></td>
     </tr>
@@ -98,14 +99,14 @@
       <td class="td-center"><a href="https://jarluces.github.io/sinsonte-security/backup-status.json" target="_blank" rel="noopener" class="ev-link">Informe</a></td>
     </tr>
     <tr>
-      <td class="td-area">Autenticación y autorización (JWT + roles)<br><span class="note">Controles activos — sin escaneo automático semanal</span></td>
-      <td class="td-center"><span class="pill configured">Activo</span></td>
+      <td class="td-area">Autenticación y autorización (JWT + roles)<br><span class="note">Declarado activo — sin verificación automática semanal</span></td>
+      <td class="td-center"><span class="pill configured">Declarado activo</span></td>
       <td class="td-center">—</td>
       <td class="td-center">—</td>
     </tr>
     <tr>
-      <td class="td-area">Rate limiting y WAF (Cloud Armor)<br><span class="note">Controles activos — sin escaneo automático semanal</span></td>
-      <td class="td-center"><span class="pill configured">Activo</span></td>
+      <td class="td-area">Rate limiting y WAF (Cloud Armor)<br><span class="note">Declarado activo — sin verificación automática semanal</span></td>
+      <td class="td-center"><span class="pill configured">Declarado activo</span></td>
       <td class="td-center">—</td>
       <td class="td-center">—</td>
     </tr></tbody>
@@ -120,14 +121,35 @@
     </div>
   </div>
 
-  <!-- Nota -->
-  <p style="font-size:12px;color:#94a3b8;line-height:1.7;margin-top:8px">
-    Esta página refleja el estado técnico observable de los controles automatizados en la
-    fecha indicada. Los controles marcados como <strong>Activo</strong> están configurados
-    y operativos, pero no disponen de verificación automática semanal ejecutada ese día.<br>
-    Cualquier consulta:
-    <a href="mailto:info@sinsonte-tech.com" style="color:#3d5a27;font-weight:600">info@sinsonte-tech.com</a>
-  </p>
+  <!-- Alcance -->
+  <div class="card" style="margin-bottom:24px">
+    <p class="card-title">Alcance y limitaciones</p>
+    <div style="padding:16px 20px;font-size:12px;color:#475569;line-height:1.8">
+      <p style="margin:0 0 8px">
+        <strong style="color:#1e293b">Qué cubre esta página:</strong>
+        controles automatizados sobre el entorno de <strong>staging</strong>
+        (no producción). Los escaneos de imagen Docker (Trivy) y los análisis DAST
+        (OWASP ZAP) se ejecutan semanalmente y en cada despliegue.
+      </p>
+      <p style="margin:0 0 8px">
+        <strong style="color:#1e293b">Qué no cubre:</strong>
+        pruebas de penetración manuales, auditoría de código fuente completa,
+        controles físicos ni configuración de producción. Los controles marcados como
+        <em>Declarado activo</em> (JWT + roles, Cloud Armor) están operativos
+        pero no disponen de verificación automática semanal en esta página.
+      </p>
+      <p style="margin:0 0 8px">
+        <strong style="color:#1e293b">Sobre los hallazgos ZAP:</strong>
+        el escaneo DAST no detecta vulnerabilidades altas. Se han identificado
+        alertas medias relacionadas con la política CSP y Subresource Integrity
+        en recursos de terceros. Están registradas y en proceso de remediación.
+      </p>
+      <p style="margin:0">
+        Contacto de seguridad:
+        <a href="mailto:info@sinsonte-tech.com" style="color:#3d5a27;font-weight:600">info@sinsonte-tech.com</a>
+      </p>
+    </div>
+  </div>
 
 </main>
 
