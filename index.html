@@ -106,7 +106,7 @@
     <span class="dot ok"></span>
     <strong>Sin hallazgos críticos</strong>
   </div>
-  <p class="hdr-date">Actualizado: 20/07/2026 11:36 UTC</p>
+  <p class="hdr-date">Actualizado: 26/07/2026 · arquitectura Cloud SQL</p>
 </header>
 
 <main>
@@ -143,9 +143,9 @@
       <td class="td-center"><a href="https://jarluces.github.io/sinsonte-security/zap-api.html" target="_blank" rel="noopener" class="ev-link">API</a> &nbsp;·&nbsp; <a href="https://jarluces.github.io/sinsonte-security/zap-app.html" target="_blank" rel="noopener" class="ev-link">App</a></td>
     </tr>
     <tr>
-      <td class="td-area">Backups Supabase<br><span class="note">Verificación semanal automatizada</span></td>
-      <td class="td-center"><span class="pill ok">OK</span></td>
-      <td class="td-center">2026-07-20</td>
+      <td class="td-area">Backups Cloud SQL + PITR<br><span class="note">Configuración declarada en Terraform: backup diario, retención 7 días y PITR · restauración pendiente de ensayo</span></td>
+      <td class="td-center"><span class="pill configured">Declarado activo</span></td>
+      <td class="td-center">—</td>
       <td class="td-center"><a href="https://jarluces.github.io/sinsonte-security/backup-status.json" target="_blank" rel="noopener" class="ev-link">Informe</a></td>
     </tr>
     <tr>
@@ -173,7 +173,7 @@
       </svg>
       <p class="card-title">Infraestructura</p>
     </div>
-    <div class="meta-row"><span class="meta-label">Cloud Run — API (staging)</span><span class="pill ok">Activo</span></div><div class="meta-row"><span class="meta-label">Cloud Run — Frontend (staging)</span><span class="pill ok">Activo</span></div><div class="meta-row"><span class="meta-label">Artifact Registry</span><span class="pill ok">Activo</span></div><div class="meta-row"><span class="meta-label">Supabase (PostgreSQL)</span><span class="pill ok">Activo</span></div><div class="meta-row"><span class="meta-label">Secret Manager</span><span class="pill ok">Activo</span></div>
+    <div class="meta-row"><span class="meta-label">Cloud Run — API (staging)</span><span class="pill ok">Activo</span></div><div class="meta-row"><span class="meta-label">Cloud Run — Frontend (staging)</span><span class="pill ok">Activo</span></div><div class="meta-row"><span class="meta-label">Artifact Registry</span><span class="pill ok">Activo</span></div><div class="meta-row"><span class="meta-label">Cloud SQL — PostgreSQL 15 (IP privada)</span><span class="pill ok">Activo</span></div><div class="meta-row"><span class="meta-label">Secret Manager</span><span class="pill ok">Activo</span></div>
   </div>
 
   <!-- Alcance -->
@@ -191,12 +191,12 @@
       <div class="scope-item">
         <strong>Qué cubre</strong>
         Controles automatizados sobre <b>staging</b>. Trivy ejecutado en cada despliegue;
-        ZAP y backups verificados semanalmente.
+        ZAP ejecutado semanalmente y configuración de backups Cloud SQL trazada desde Terraform.
       </div>
       <div class="scope-item">
         <strong>Qué no cubre</strong>
         Pentesting manual, auditoría de código fuente completa,
-        controles físicos ni entorno de producción.
+        controles físicos, entorno de producción ni pruebas de restauración de Cloud SQL.
       </div>
       <div class="scope-item">
         <strong>Sobre hallazgos ZAP</strong>
