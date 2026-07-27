@@ -1,17 +1,8 @@
 {
-  "provider": "Google Cloud SQL",
-  "instance": "sinsonte-db-staging",
-  "database_version": "POSTGRES_15",
-  "verification": "terraform_configuration",
-  "backup": {
-    "enabled": true,
-    "start_time_utc": "02:00",
-    "retained_backups": 7
-  },
-  "point_in_time_recovery": {
-    "enabled": true,
-    "transaction_log_retention_days": 7
-  },
-  "restore_tested": false,
-  "note": "Configuración declarada en Terraform. No equivale a una prueba de restauración."
+  "checked_at": "2026-07-27T10:48:16Z",
+  "secrets_configured": true,
+  "project_status": "unknown",
+  "backup_count": "n/a",
+  "latest_backup": "n/a",
+  "run_url": "https://github.com/JarLuces/infraestructura-sinsonte/actions/runs/30259466282"
 }
